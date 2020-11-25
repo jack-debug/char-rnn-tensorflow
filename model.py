@@ -36,15 +36,15 @@ class Model():
         self.cell = cell = rnn.MultiRNNCell(cells, state_is_tuple=True)
 
         # input/target data (int32 since input is char-level)
-        self.input_data = tf.placeholder(
+        self.input_data = tf.compat.v1.placeholder(
             tf.int32, [args.batch_size, args.seq_length])
         self.targets = tf.placeholder(
             tf.int32, [args.batch_size, args.seq_length])
         self.initial_state = cell.zero_state(args.batch_size, tf.float32)
 
         # softmax output layer, use softmax to classify
-        with tf.variable_scope('rnnlm'):
-            softmax_w = tf.get_variable("softmax_w",
+        with tf.compat.v1.variable_scope('rnnlm'):
+            softmax_w = tf.compat.v1.get_variable("softmax_w",
                                         [args.rnn_size, args.vocab_size])
             softmax_b = tf.get_variable("softmax_b", [args.vocab_size])
 
